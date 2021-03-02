@@ -14,7 +14,7 @@
 ;--------------------------------
 ; Informacion basica del programa - Modificar estos strings para cada servidor
 
-!define PRODUCT_NAME     "AO 20"
+!define PRODUCT_NAME     "Argentum 20"
 
 !define GAME_CLIENT_FILE "LauncherAO20.exe"
 !define GAME_MANUAL_FILE "Manual.url"
@@ -22,7 +22,7 @@
 
 
 ; Folder in which the game files are stored (relative to script)
-!define GAME_FILES       "Ao20\*.*"
+!define GAME_FILES       "AO20\*.*"
 
 
 ; Folder in which the dlls and ocx for the game are stored (relative to script)
@@ -328,6 +328,9 @@ Section "-Install VB6 runtimes"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
      "${DEPENDS_FOLDER}\MSSTDFMT.DLL" "$SYSDIR\MSSTDFMT.DLL" "$SYSDIR"
+	 
+  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
+     "${DEPENDS_FOLDER}\aamd532.dll" "$SYSDIR\aamd532.dll" "$SYSDIR"
 SectionEnd
 
 

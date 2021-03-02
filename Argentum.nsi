@@ -363,7 +363,7 @@ Section "-un.Uninstall VB6 runtimes"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\zlib.dll"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\MSCOMCTL.OCX"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\MSSTDFMT.DLL"
-
+  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\aamd532.dll"
   
 SectionEnd
 

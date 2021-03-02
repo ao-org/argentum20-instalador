@@ -18,7 +18,7 @@
 
 !define GAME_CLIENT_FILE "LauncherAO20.exe"
 !define GAME_MANUAL_FILE "Manual.url"
-!define WEBSITE          "http://www.argentum20.com"
+!define WEBSITE          "https://ao20.com.ar"
 
 
 ; Folder in which the game files are stored (relative to script)

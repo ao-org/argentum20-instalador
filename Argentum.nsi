@@ -14,7 +14,7 @@
 ;--------------------------------
 ; Informacion basica del programa - Modificar estos strings para cada servidor
 
-!define PRODUCT_NAME     "Argentum 20"
+!define PRODUCT_NAME     "Instalador Argentum 20"
 
 !define GAME_CLIENT_FILE "LauncherAO20.exe"
 !define GAME_MANUAL_FILE "Manual.url"
@@ -73,12 +73,11 @@
 !define INSTALL_DIR_REG_NAME "Install_Dir"
 
 ;--------------------------------
+
 ;Configuration
 
 Name "${PRODUCT_NAME}"
-
 OutFile "${PRODUCT_NAME}.exe"
-
 InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
 
 ;General

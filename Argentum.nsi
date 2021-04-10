@@ -14,7 +14,7 @@
 ;--------------------------------
 ; Informacion basica del programa - Modificar estos strings para cada servidor
 
-!define PRODUCT_NAME     "Instalador Argentum 20"
+!define PRODUCT_NAME     "Instalador_AO20"
 
 !define GAME_CLIENT_FILE "LauncherAO20.exe"
 !define GAME_MANUAL_FILE "Manual.url"
@@ -57,7 +57,7 @@
 !define PASS_RECOVERY_APP "Recuperar.exe"   ;Name of the password recovery program
 
 ;--------------------------------
-; De acá en más no deberías de tocar si no sabés lo que estás haciendo...
+; De acï¿½ en mï¿½s no deberï¿½as de tocar si no sabï¿½s lo que estï¿½s haciendo...
 
 
 ;--------------------------------
@@ -96,7 +96,7 @@ SetCompressor /SOLID lzma
 ; Para las DLLs y OCXs
 Var ALREADY_INSTALLED
 
-; Para la creación del grupo en el Menú de Inicio
+; Para la creaciï¿½n del grupo en el Menï¿½ de Inicio
 Var START_MENU_FOLDER
 Var MUI_TEMP
 
@@ -158,7 +158,7 @@ InstallDirRegKey HKLM ${AO_INSTALLDIR_REGKEY} "${INSTALL_DIR_REG_NAME}"
 ; Description of each component in each language
 
 LangString ARGENTUM_DESC ${LANG_ENGLISH} "Basic client for ${PRODUCT_NAME}"
-LangString ARGENTUM_DESC ${LANG_SPANISH} "Cliente básico de ${PRODUCT_NAME}"
+LangString ARGENTUM_DESC ${LANG_SPANISH} "Cliente bï¿½sico de ${PRODUCT_NAME}"
 
 LangString DESKTOP_LINK_DESC ${LANG_ENGLISH} "Adds a link to ${PRODUCT_NAME} in the Desktop"
 LangString DESKTOP_LINK_DESC ${LANG_SPANISH} "Agrega un acceso directo a ${PRODUCT_NAME} en el Escritorio"
@@ -182,7 +182,7 @@ LangString AUTO_UPDATE_LINK ${LANG_ENGLISH} "Search for updates.lnk"
 LangString AUTO_UPDATE_LINK ${LANG_SPANISH} "Buscar actualizaciones.lnk"
 
 LangString PASS_RECOVERY_APP_LINK ${LANG_ENGLISH} "Recover password.lnk"
-LangString PASS_RECOVERY_APP_LINK ${LANG_SPANISH} "Recuperar contraseña.lnk"
+LangString PASS_RECOVERY_APP_LINK ${LANG_SPANISH} "Recuperar contraseï¿½a.lnk"
 
 ;--------------------------------
 ; Licences for each language

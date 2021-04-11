@@ -1,3 +1,4 @@
+Unicode true
 ;--------------------------------
 ;
 ; Instalador de Argentum Online
@@ -13,10 +14,9 @@
 
 ;--------------------------------
 ; Informacion basica del programa - Modificar estos strings para cada servidor
+!define PRODUCT_NAME     "AO20"
 
-!define PRODUCT_NAME     "Instalador_AO20"
-
-!define GAME_CLIENT_FILE "LauncherAO20.exe"
+!define GAME_CLIENT_FILE "Launcher\LauncherAO20.exe"
 !define GAME_MANUAL_FILE "Manual.url"
 !define WEBSITE          "https://ao20.com.ar"
 
@@ -24,17 +24,18 @@
 ; Folder in which the game files are stored (relative to script)
 !define GAME_FILES       "AO20\*.*"
 
-
 ; Folder in which the dlls and ocx for the game are stored (relative to script)
 !define DEPENDS_FOLDER   "dlls"
 
+; Carpeta donde se intslara todo.
+; CUIDADO: Ruta relativa a `C:\`, por ejemplo, `C:\{INSTALL_FOLDER}`
+!define INSTALL_FOLDER   "${PRODUCT_NAME}" 
 
 ; Nombre del grupo de registros a crearse
 !define AO_BASIC_REGKEY "AO20"
 
-
+; Nombre del ejecutable que desinstalara la aplicacion
 !define UNINSTALLER_NAME "uninstall.exe"
-
 
 ; Both icons MUST have the same size and depth!
 !define APP_ICON         "install.ico"
@@ -57,7 +58,7 @@
 !define PASS_RECOVERY_APP "Recuperar.exe"   ;Name of the password recovery program
 
 ;--------------------------------
-; De ac� en m�s no deber�as de tocar si no sab�s lo que est�s haciendo...
+; De aca en mas no deberaas de tocar si no sabes lo que estas haciendo...
 
 
 ;--------------------------------
@@ -78,7 +79,6 @@
 
 Name "${PRODUCT_NAME}"
 OutFile "${PRODUCT_NAME}.exe"
-InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
 
 ;General
 
@@ -87,7 +87,7 @@ SetOverwrite on
 AutoCloseWindow false
 ShowInstDetails show
 ShowUninstDetails show
-
+AllowRootDirInstall true
 SetCompressor /SOLID lzma
 
 !include "MUI.nsh"
@@ -158,7 +158,7 @@ InstallDirRegKey HKLM ${AO_INSTALLDIR_REGKEY} "${INSTALL_DIR_REG_NAME}"
 ; Description of each component in each language
 
 LangString ARGENTUM_DESC ${LANG_ENGLISH} "Basic client for ${PRODUCT_NAME}"
-LangString ARGENTUM_DESC ${LANG_SPANISH} "Cliente b�sico de ${PRODUCT_NAME}"
+LangString ARGENTUM_DESC ${LANG_SPANISH} "Cliente básico de ${PRODUCT_NAME}"
 
 LangString DESKTOP_LINK_DESC ${LANG_ENGLISH} "Adds a link to ${PRODUCT_NAME} in the Desktop"
 LangString DESKTOP_LINK_DESC ${LANG_SPANISH} "Agrega un acceso directo a ${PRODUCT_NAME} en el Escritorio"
@@ -373,7 +373,13 @@ SectionEnd
 RequestExecutionLevel admin ;Require admin rights on NT6+ (When UAC is turned on)
 
 Function .onInit
-
+	
+	; Nos fijamos la letra del volumen de disco actual y se la seteamos a $INSTDIR
+	ReadEnvStr $INSTDIR SYSTEMDRIVE
+	
+	; Instalamos el juego en `LETRA_DISCO:\${INSTALL_FOLDER}`
+	StrCpy $INSTDIR "$INSTDIR\${INSTALL_FOLDER}"
+	
 	UserInfo::GetAccountType
 	pop $0
 	${If} $0 != "admin" ;Require admin rights on NT4+

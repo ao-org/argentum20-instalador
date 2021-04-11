@@ -227,7 +227,8 @@ SectionEnd
 ; Optional section (can be disabled by the user)
 
 Section "$(DESKTOP_LINK_COMPONENT)" SEC_DESKTOP_LINK
-
+	
+  SetOutPath "$INSTDIR\Launcher"
   CreateShortCut "$DESKTOP\${GAME_LINK_FILE_NAME}" "$INSTDIR\${GAME_CLIENT_FILE}" "" "$INSTDIR\${GAME_CLIENT_FILE}" 0
 
 SectionEnd
@@ -416,6 +417,7 @@ Function CreateStartMenuGroup
     CreateDirectory "${AO_STARTMENU_FULL_DIR}"
 
     CreateShortCut "${AO_STARTMENU_FULL_DIR}\$(UNINSTALL_LINK)" "$INSTDIR\${UNINSTALLER_NAME}" "" "$INSTDIR\${UNINSTALLER_NAME}" 0
+	
 	CreateShortCut "${AO_STARTMENU_FULL_DIR}\${GAME_LINK_FILE_NAME}" "$INSTDIR\${GAME_FILES}\${GAME_CLIENT_FILE}" "" "$INSTDIR\${GAME_FILES}\${GAME_CLIENT_FILE}" 0
 
     StrCmp ${INCLUDE_CONFIGURE_APP} "0" +2

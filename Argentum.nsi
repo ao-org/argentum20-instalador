@@ -22,7 +22,7 @@ Unicode true
 
 
 ; Folder in which the game files are stored (relative to script)
-!define GAME_FILES       "AO20\*.*"
+!define GAME_FILES       "Argentum20\*.*"
 
 ; Folder in which the dlls and ocx for the game are stored (relative to script)
 !define DEPENDS_FOLDER   "dlls"

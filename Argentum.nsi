@@ -14,7 +14,7 @@ Unicode true
 
 ;--------------------------------
 ; Informacion basica del programa - Modificar estos strings para cada servidor
-!define PRODUCT_NAME     "AO20"
+!define PRODUCT_NAME     "Instalador_AO20"
 
 !define GAME_CLIENT_FILE "Launcher\LauncherAO20.exe"
 !define GAME_MANUAL_FILE "Manual.url"

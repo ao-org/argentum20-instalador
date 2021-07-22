@@ -182,7 +182,7 @@ LangString AUTO_UPDATE_LINK ${LANG_ENGLISH} "Search for updates.lnk"
 LangString AUTO_UPDATE_LINK ${LANG_SPANISH} "Buscar actualizaciones.lnk"
 
 LangString PASS_RECOVERY_APP_LINK ${LANG_ENGLISH} "Recover password.lnk"
-LangString PASS_RECOVERY_APP_LINK ${LANG_SPANISH} "Recuperar contrase�a.lnk"
+LangString PASS_RECOVERY_APP_LINK ${LANG_SPANISH} "Recuperar password.lnk"
 
 ;--------------------------------
 ; Licences for each language
@@ -303,12 +303,6 @@ Section "-Install VB6 runtimes"
      "${DEPENDS_FOLDER}\RICHTX32.ocx" "$SYSDIR\RICHTX32.ocx" "$SYSDIR"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\CSWSK32.ocx" "$SYSDIR\CSWSK32.ocx" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\MSWINSCK.ocx" "$SYSDIR\MSWINSCK.ocx" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
      "${DEPENDS_FOLDER}\comctl32.ocx" "$SYSDIR\comctl32.ocx" "$SYSDIR"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
@@ -326,9 +320,6 @@ Section "-Install VB6 runtimes"
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
      "${DEPENDS_FOLDER}\MSCOMCTL.OCX" "$SYSDIR\MSCOMCTL.OCX" "$SYSDIR"
 
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\MSSTDFMT.DLL" "$SYSDIR\MSSTDFMT.DLL" "$SYSDIR"
-	 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
      "${DEPENDS_FOLDER}\aamd532.dll" "$SYSDIR\aamd532.dll" "$SYSDIR"
 SectionEnd
@@ -354,15 +345,12 @@ Section "-un.Uninstall VB6 runtimes"
 
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\MSINET.ocx"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\RICHTX32.ocx"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\CSWSK32.ocx"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\MSWINSCK.ocx"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\comctl32.ocx"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\DX8VB.DLL"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\QUARTZ.DLL"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\RICHTX32.OCX"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\zlib.dll"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\MSCOMCTL.OCX"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\MSSTDFMT.DLL"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\aamd532.dll"
   
 SectionEnd

@@ -209,7 +209,7 @@ Section "${PRODUCT_NAME}" SEC_ARGENTUM
   ;--------------------------------------------------------------------
   ; *** Los archivos del juego ***
 
-  File /r "${GAME_FILES_FOLDER}/*.*"
+  File /r "${GAME_FILES_FOLDER}\*.*"
   
   ;--------------------------------------------------------------------
   ; Write the installation path into the registry
@@ -359,6 +359,12 @@ Section "-un.Uninstall VB6 runtimes"
   
 SectionEnd
 
+Section "Visual Studio C++ Runtime"
+  SetOutPath "$INSTDIR"
+  File "${DEPENDS_FOLDER}\vcredist_x86.exe"
+  ExecWait "$INSTDIR\vcredist_x86.exe /install /quiet /passive"
+  Delete "$INSTDIR\vcredist_x86.exe"
+SectionEnd
 
 ;--------------------------------
 ; Installer Functions

@@ -22,10 +22,10 @@ Unicode true
 
 
 ; Folder in which the game files are stored (relative to script)
-!define GAME_FILES       "Argentum20\*.*"
+!define GAME_FILES       "files\*.*"
 
 ; Folder in which the dlls and ocx for the game are stored (relative to script)
-!define DEPENDS_FOLDER   "dlls"
+!define DEPENDS_FOLDER   "dependencies"
 
 ; Carpeta donde se intslara todo.
 ; CUIDADO: Ruta relativa a `C:\`, por ejemplo, `C:\{INSTALL_FOLDER}`
@@ -355,6 +355,15 @@ Section "-un.Uninstall VB6 runtimes"
   
 SectionEnd
 
+;--------------------------------
+; C++ Runtime
+
+Section "Visual Studio C++ Runtime"
+  SectionIn RO
+  SetOutPath "$INSTDIR"
+  File "${DEPENDS_FOLDER}\vcredist_x86.exe"
+  ExecWait "$INSTDIR\vcredist_x86.exe /install /quiet /norestart"
+SectionEnd
 
 ;--------------------------------
 ; Installer Functions

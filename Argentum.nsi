@@ -22,10 +22,10 @@ Unicode true
 
 
 ; Folder in which the game files are stored (relative to script)
-!define GAME_FILES       "Argentum20\*.*"
+!define GAME_FILES_FOLDER "files"
 
 ; Folder in which the dlls and ocx for the game are stored (relative to script)
-!define DEPENDS_FOLDER   "dlls"
+!define DEPENDS_FOLDER   "dependencies"
 
 ; Carpeta donde se intslara todo.
 ; CUIDADO: Ruta relativa a `C:\`, por ejemplo, `C:\{INSTALL_FOLDER}`
@@ -74,13 +74,13 @@ Unicode true
 !define INSTALL_DIR_REG_NAME "Install_Dir"
 
 ;--------------------------------
-
-;Configuration
+; Configuration
 
 Name "${PRODUCT_NAME}"
 OutFile "${PRODUCT_NAME}.exe"
 
-;General
+;--------------------------------
+; General
 
 CRCCheck force
 SetOverwrite on
@@ -89,9 +89,14 @@ ShowInstDetails show
 ShowUninstDetails show
 AllowRootDirInstall true
 SetCompressor /SOLID lzma
+RequestExecutionLevel admin ;Require admin rights on NT6+ (When UAC is turned on)
+
+;--------------------------------
+; Additional scripts
 
 !include "MUI.nsh"
 !include "Library.nsh"
+!include LogicLib.nsh
 
 ; Para las DLLs y OCXs
 Var ALREADY_INSTALLED
@@ -103,7 +108,6 @@ Var MUI_TEMP
 ; Registry key to check for directory (so if you install again, it will 
 ; overwrite the old one automatically)
 InstallDirRegKey HKLM ${AO_INSTALLDIR_REGKEY} "${INSTALL_DIR_REG_NAME}"
-
 
 ;--------------------------------
 ;Interface Configuration
@@ -205,7 +209,7 @@ Section "${PRODUCT_NAME}" SEC_ARGENTUM
   ;--------------------------------------------------------------------
   ; *** Los archivos del juego ***
 
-  File /r "${GAME_FILES}"
+  File /r "${GAME_FILES_FOLDER}/*.*"
   
   ;--------------------------------------------------------------------
   ; Write the installation path into the registry
@@ -358,8 +362,6 @@ SectionEnd
 
 ;--------------------------------
 ; Installer Functions
-!include LogicLib.nsh
-RequestExecutionLevel admin ;Require admin rights on NT6+ (When UAC is turned on)
 
 Function .onInit
 	
@@ -406,7 +408,7 @@ Function CreateStartMenuGroup
 
     CreateShortCut "${AO_STARTMENU_FULL_DIR}\$(UNINSTALL_LINK)" "$INSTDIR\${UNINSTALLER_NAME}" "" "$INSTDIR\${UNINSTALLER_NAME}" 0
 	
-	CreateShortCut "${AO_STARTMENU_FULL_DIR}\${GAME_LINK_FILE_NAME}" "$INSTDIR\${GAME_FILES}\${GAME_CLIENT_FILE}" "" "$INSTDIR\${GAME_FILES}\${GAME_CLIENT_FILE}" 0
+	CreateShortCut "${AO_STARTMENU_FULL_DIR}\${GAME_LINK_FILE_NAME}" "$INSTDIR\${GAME_FILES_FOLDER}\${GAME_CLIENT_FILE}" "" "$INSTDIR\${GAME_FILES_FOLDER}\${GAME_CLIENT_FILE}" 0
 
     StrCmp ${INCLUDE_CONFIGURE_APP} "0" +2
       CreateShortCut "${AO_STARTMENU_FULL_DIR}\$(CONFIGURATION_APP_LINK)" "$INSTDIR\${CONFIGURE_APP}" "" "$INSTDIR\${CONFIGURE_APP}" 0

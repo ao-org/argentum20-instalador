@@ -222,6 +222,15 @@ Section "${PRODUCT_NAME}" SEC_ARGENTUM
   Call CreateStartMenuGroup
 SectionEnd
 
+;--------------------------------
+; C++ Runtime
+
+Section "Visual Studio C++ Runtime"
+  SectionIn RO
+  SetOutPath "$INSTDIR"
+  File "${DEPENDS_FOLDER}\VC_redist.x86.exe"
+  ExecWait "$INSTDIR\VC_redist.x86.exe /install /quiet /norestart"
+SectionEnd
 
 ;--------------------------------
 ; Optional section (can be disabled by the user)

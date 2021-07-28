@@ -101,7 +101,7 @@ Function .onInit
    UserInfo::GetAccountType
    pop $0
    ${If} $0 != "admin" ;Require admin rights on NT4+
-         MessageBox mb_iconstop ${ERROR_NOT_ADMIN}
+         MessageBox mb_iconstop "Se necesitan permisos de Administrador para intalar el juego"
          SetErrorLevel 740 ;ERROR_ELEVATION_REQUIRED
          Quit
    ${EndIf}

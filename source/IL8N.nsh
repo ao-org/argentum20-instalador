@@ -31,11 +31,5 @@ LangString PASS_RECOVERY_APP_LINK ${LANG_SPANISH} "Recuperar password.lnk"
 ;--------------------------------
 ; Licences for each language
 
-LicenseLangString MUILicense ${LANG_ENGLISH} "assets\license.txt"
-LicenseLangString MUILicense ${LANG_SPANISH} "assets\license-es.txt"
-
-;--------------------------------
-; Translations of message errors
-
-LangString ERROR_NOT_ADMIN ${LANG_ENGLISH} "Administrator rights required!"
-LangString ERROR_NOT_ADMIN ${LANG_SPANISH} "Se necesitan permisos de Administrador para realizar esta operacion"
+LangString MUILicense ${LANG_ENGLISH} "assets\license.txt"
+LangString MUILicense ${LANG_SPANISH} "assets\license-es.txt"

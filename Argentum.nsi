@@ -27,10 +27,6 @@ Unicode true
 ; Folder in which the dlls and ocx for the game are stored (relative to script)
 !define DEPENDS_FOLDER   "dlls"
 
-; Carpeta donde se intslara todo.
-; CUIDADO: Ruta relativa a `C:\`, por ejemplo, `C:\{INSTALL_FOLDER}`
-!define INSTALL_FOLDER   "${PRODUCT_NAME}" 
-
 ; Nombre del grupo de registros a crearse
 !define AO_BASIC_REGKEY "AO20"
 
@@ -79,6 +75,7 @@ Unicode true
 
 Name "${PRODUCT_NAME}"
 OutFile "${PRODUCT_NAME}.exe"
+InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
 
 ;General
 
@@ -87,7 +84,6 @@ SetOverwrite on
 AutoCloseWindow false
 ShowInstDetails show
 ShowUninstDetails show
-AllowRootDirInstall true
 SetCompressor /SOLID lzma
 
 !include "MUI.nsh"
@@ -371,20 +367,14 @@ SectionEnd
 RequestExecutionLevel admin ;Require admin rights on NT6+ (When UAC is turned on)
 
 Function .onInit
-	
-	; Nos fijamos la letra del volumen de disco actual y se la seteamos a $INSTDIR
-	ReadEnvStr $INSTDIR SYSTEMDRIVE
-	
-	; Instalamos el juego en `LETRA_DISCO:\${INSTALL_FOLDER}`
-	StrCpy $INSTDIR "$INSTDIR\${INSTALL_FOLDER}"
-	
-	UserInfo::GetAccountType
-	pop $0
-	${If} $0 != "admin" ;Require admin rights on NT4+
-		MessageBox mb_iconstop "Administrator rights required!"
-		SetErrorLevel 740 ;ERROR_ELEVATION_REQUIRED
-		Quit
-	${EndIf}
+
+    UserInfo::GetAccountType
+    pop $0
+    ${If} $0 != "admin" ;Require admin rights on NT4+
+    	MessageBox mb_iconstop "Administrator rights required!"
+     	SetErrorLevel 740 ;ERROR_ELEVATION_REQUIRED
+      	Quit
+    ${EndIf}
 
   ; Make sure we request for the language
   !insertmacro MUI_LANGDLL_DISPLAY

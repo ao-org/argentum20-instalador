@@ -70,15 +70,15 @@ Unicode true
 !define INSTALL_DIR_REG_NAME "Install_Dir"
 
 ;--------------------------------
-
-;Configuration
+; Configuration
 
 Name "${PRODUCT_NAME}"
 OutFile "${PRODUCT_NAME}.exe"
 InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
 
-;General
+; General
 
+RequestExecutionLevel admin ;Require admin rights on NT6+ (When UAC is turned on)
 CRCCheck force
 SetOverwrite on
 AutoCloseWindow false
@@ -86,8 +86,12 @@ ShowInstDetails show
 ShowUninstDetails show
 SetCompressor /SOLID lzma
 
-!include "MUI.nsh"
-!include "Library.nsh"
+;--------------------------------
+; Header Files
+
+!include LogicLib.nsh
+!include MUI.nsh
+!include Library.nsh
 
 ; Para las DLLs y OCXs
 Var ALREADY_INSTALLED
@@ -276,33 +280,33 @@ Section "-Install VB6 runtimes"
 
   new_installation:
 
-;--------------------------------
-; Librerias COM usadas por la aplicación
+  SetOutPath "$INSTDIR\${DEPENDS_FOLDER}"
+
+  ;--------------------------------
+  ; Librerias COM usadas por la aplicación
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\MSINET.ocx" "$SYSDIR\MSINET.ocx" "$SYSDIR"
+     "${DEPENDS_FOLDER}\MSINET.ocx" "$INSTDIR\${DEPENDS_FOLDER}\MSINET.ocx" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\RICHTX32.ocx" "$SYSDIR\RICHTX32.ocx" "$SYSDIR"
+     "${DEPENDS_FOLDER}\RICHTX32.ocx" "$INSTDIR\${DEPENDS_FOLDER}\RICHTX32.ocx" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\comctl32.ocx" "$SYSDIR\comctl32.ocx" "$SYSDIR"
+     "${DEPENDS_FOLDER}\comctl32.ocx" "$INSTDIR\${DEPENDS_FOLDER}\comctl32.ocx" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\DX8VB.DLL" "$SYSDIR\DX8VB.DLL" "$SYSDIR"
+     "${DEPENDS_FOLDER}\DX8VB.DLL" "$INSTDIR\${DEPENDS_FOLDER}\DX8VB.DLL" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\RICHTX32.OCX" "$SYSDIR\RICHTX32.OCX" "$SYSDIR"
+     "${DEPENDS_FOLDER}\RICHTX32.OCX" "$INSTDIR\${DEPENDS_FOLDER}\RICHTX32.OCX" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\MSCOMCTL.OCX" "$SYSDIR\MSCOMCTL.OCX" "$SYSDIR"
+     "${DEPENDS_FOLDER}\MSCOMCTL.OCX" "$INSTDIR\${DEPENDS_FOLDER}\MSCOMCTL.OCX" "$TEMP"
      
 SectionEnd
 
 ;--------------------------------
 ; Installer Functions
-!include LogicLib.nsh
-RequestExecutionLevel admin ;Require admin rights on NT6+ (When UAC is turned on)
 
 Function .onInit
 

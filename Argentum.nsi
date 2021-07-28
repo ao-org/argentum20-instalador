@@ -27,10 +27,6 @@ Unicode true
 ; Folder in which the dlls and ocx for the game are stored (relative to script)
 !define DEPENDS_FOLDER   "dlls"
 
-; Carpeta donde se intslara todo.
-; CUIDADO: Ruta relativa a `C:\`, por ejemplo, `C:\{INSTALL_FOLDER}`
-!define INSTALL_FOLDER   "${PRODUCT_NAME}" 
-
 ; Nombre del grupo de registros a crearse
 !define AO_BASIC_REGKEY "AO20"
 
@@ -74,24 +70,28 @@ Unicode true
 !define INSTALL_DIR_REG_NAME "Install_Dir"
 
 ;--------------------------------
-
-;Configuration
+; Configuration
 
 Name "${PRODUCT_NAME}"
 OutFile "${PRODUCT_NAME}.exe"
+InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
 
-;General
+; General
 
+RequestExecutionLevel admin ;Require admin rights on NT6+ (When UAC is turned on)
 CRCCheck force
 SetOverwrite on
 AutoCloseWindow false
 ShowInstDetails show
 ShowUninstDetails show
-AllowRootDirInstall true
 SetCompressor /SOLID lzma
 
-!include "MUI.nsh"
-!include "Library.nsh"
+;--------------------------------
+; Header Files
+
+!include LogicLib.nsh
+!include MUI.nsh
+!include Library.nsh
 
 ; Para las DLLs y OCXs
 Var ALREADY_INSTALLED
@@ -280,111 +280,43 @@ Section "-Install VB6 runtimes"
 
   new_installation:
 
-;--------------------------------
-; Librerias basicas de VB6
+  SetOutPath "$INSTDIR\${DEPENDS_FOLDER}"
 
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_NOTPROTECTED \
-     "${DEPENDS_FOLDER}\msvbvm60.dll" "$SYSDIR\msvbvm60.dll" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\oleaut32.dll" "$SYSDIR\oleaut32.dll" "$SYSDIR"
+  ;--------------------------------
+  ; Librerias COM usadas por la aplicación
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\olepro32.dll" "$SYSDIR\olepro32.dll" "$SYSDIR"
+     "${DEPENDS_FOLDER}\MSINET.ocx" "$INSTDIR\${DEPENDS_FOLDER}\MSINET.ocx" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\comcat.dll"   "$SYSDIR\comcat.dll"   "$SYSDIR"
-
-  !insertmacro InstallLib DLL    $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\asycfilt.dll" "$SYSDIR\asycfilt.dll" "$SYSDIR"
-
-  !insertmacro InstallLib TLB    $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\stdole2.tlb"  "$SYSDIR\stdole2.tlb"  "$SYSDIR"
- 
-
-;--------------------------------
-; OCX y DLLs
+     "${DEPENDS_FOLDER}\RICHTX32.ocx" "$INSTDIR\${DEPENDS_FOLDER}\RICHTX32.ocx" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\MSINET.ocx" "$SYSDIR\MSINET.ocx" "$SYSDIR"
+     "${DEPENDS_FOLDER}\comctl32.ocx" "$INSTDIR\${DEPENDS_FOLDER}\comctl32.ocx" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\RICHTX32.ocx" "$SYSDIR\RICHTX32.ocx" "$SYSDIR"
+     "${DEPENDS_FOLDER}\DX8VB.DLL" "$INSTDIR\${DEPENDS_FOLDER}\DX8VB.DLL" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\comctl32.ocx" "$SYSDIR\comctl32.ocx" "$SYSDIR"
+     "${DEPENDS_FOLDER}\RICHTX32.OCX" "$INSTDIR\${DEPENDS_FOLDER}\RICHTX32.OCX" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\DX8VB.DLL" "$SYSDIR\DX8VB.DLL" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\QUARTZ.DLL" "$SYSDIR\QUARTZ.DLL" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\RICHTX32.OCX" "$SYSDIR\RICHTX32.OCX" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\zlib.dll" "$SYSDIR\zlib.dll" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\MSCOMCTL.OCX" "$SYSDIR\MSCOMCTL.OCX" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\aamd532.dll" "$SYSDIR\aamd532.dll" "$SYSDIR"
+     "${DEPENDS_FOLDER}\MSCOMCTL.OCX" "$INSTDIR\${DEPENDS_FOLDER}\MSCOMCTL.OCX" "$TEMP"
+     
 SectionEnd
-
-
-;--------------------------------
-; Uninstall VB6 runtimes
-
-Section "-un.Uninstall VB6 runtimes"
-
-;--------------------------------
-; Librerias basicas de VB6
-
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\msvbvm60.dll"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\oleaut32.dll"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\olepro32.dll"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\comcat.dll"
-  !insertmacro UnInstallLib DLL    SHARED NOREMOVE "$SYSDIR\asycfilt.dll"
-  !insertmacro UnInstallLib TLB    SHARED NOREMOVE "$SYSDIR\stdole2.tlb"
-
-;--------------------------------
-; OCX y DLLs
-
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\MSINET.ocx"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\RICHTX32.ocx"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\comctl32.ocx"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\DX8VB.DLL"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\QUARTZ.DLL"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\RICHTX32.OCX"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\zlib.dll"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\MSCOMCTL.OCX"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\aamd532.dll"
-  
-SectionEnd
-
 
 ;--------------------------------
 ; Installer Functions
-!include LogicLib.nsh
-RequestExecutionLevel admin ;Require admin rights on NT6+ (When UAC is turned on)
 
 Function .onInit
-	
-	; Nos fijamos la letra del volumen de disco actual y se la seteamos a $INSTDIR
-	ReadEnvStr $INSTDIR SYSTEMDRIVE
-	
-	; Instalamos el juego en `LETRA_DISCO:\${INSTALL_FOLDER}`
-	StrCpy $INSTDIR "$INSTDIR\${INSTALL_FOLDER}"
-	
-	UserInfo::GetAccountType
-	pop $0
-	${If} $0 != "admin" ;Require admin rights on NT4+
-		MessageBox mb_iconstop "Administrator rights required!"
-		SetErrorLevel 740 ;ERROR_ELEVATION_REQUIRED
-		Quit
-	${EndIf}
+
+    UserInfo::GetAccountType
+    pop $0
+    ${If} $0 != "admin" ;Require admin rights on NT4+
+    	MessageBox mb_iconstop "Administrator rights required!"
+     	SetErrorLevel 740 ;ERROR_ELEVATION_REQUIRED
+      	Quit
+    ${EndIf}
 
   ; Make sure we request for the language
   !insertmacro MUI_LANGDLL_DISPLAY

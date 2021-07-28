@@ -96,7 +96,7 @@ SetCompressor /SOLID lzma
 ; Para las DLLs y OCXs
 Var ALREADY_INSTALLED
 
-; Para la creaci�n del grupo en el Men� de Inicio
+; Para la creacion del grupo en el Menu de Inicio
 Var START_MENU_FOLDER
 Var MUI_TEMP
 

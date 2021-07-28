@@ -299,38 +299,6 @@ Section "-Install VB6 runtimes"
      
 SectionEnd
 
-
-;--------------------------------
-; Uninstall VB6 runtimes
-
-Section "-un.Uninstall VB6 runtimes"
-
-;--------------------------------
-; Librerias basicas de VB6
-
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\msvbvm60.dll"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\oleaut32.dll"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\olepro32.dll"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\comcat.dll"
-  !insertmacro UnInstallLib DLL    SHARED NOREMOVE "$SYSDIR\asycfilt.dll"
-  !insertmacro UnInstallLib TLB    SHARED NOREMOVE "$SYSDIR\stdole2.tlb"
-
-;--------------------------------
-; OCX y DLLs
-
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\MSINET.ocx"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\RICHTX32.ocx"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\comctl32.ocx"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\DX8VB.DLL"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\QUARTZ.DLL"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\RICHTX32.OCX"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\zlib.dll"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\MSCOMCTL.OCX"
-  !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\aamd532.dll"
-
-SectionEnd
-
-
 ;--------------------------------
 ; Installer Functions
 !include LogicLib.nsh

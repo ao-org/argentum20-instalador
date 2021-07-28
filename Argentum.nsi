@@ -277,29 +277,7 @@ Section "-Install VB6 runtimes"
   new_installation:
 
 ;--------------------------------
-; Librerias basicas de VB6
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_NOTPROTECTED \
-     "${DEPENDS_FOLDER}\msvbvm60.dll" "$SYSDIR\msvbvm60.dll" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\oleaut32.dll" "$SYSDIR\oleaut32.dll" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\olepro32.dll" "$SYSDIR\olepro32.dll" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\comcat.dll"   "$SYSDIR\comcat.dll"   "$SYSDIR"
-
-  !insertmacro InstallLib DLL    $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\asycfilt.dll" "$SYSDIR\asycfilt.dll" "$SYSDIR"
-
-  !insertmacro InstallLib TLB    $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\stdole2.tlb"  "$SYSDIR\stdole2.tlb"  "$SYSDIR"
- 
-
-;--------------------------------
-; OCX y DLLs
+; Librerias COM usadas por la aplicación
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
      "${DEPENDS_FOLDER}\MSINET.ocx" "$SYSDIR\MSINET.ocx" "$SYSDIR"
@@ -314,19 +292,11 @@ Section "-Install VB6 runtimes"
      "${DEPENDS_FOLDER}\DX8VB.DLL" "$SYSDIR\DX8VB.DLL" "$SYSDIR"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\QUARTZ.DLL" "$SYSDIR\QUARTZ.DLL" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
      "${DEPENDS_FOLDER}\RICHTX32.OCX" "$SYSDIR\RICHTX32.OCX" "$SYSDIR"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\zlib.dll" "$SYSDIR\zlib.dll" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
      "${DEPENDS_FOLDER}\MSCOMCTL.OCX" "$SYSDIR\MSCOMCTL.OCX" "$SYSDIR"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\aamd532.dll" "$SYSDIR\aamd532.dll" "$SYSDIR"
+     
 SectionEnd
 
 
@@ -357,7 +327,7 @@ Section "-un.Uninstall VB6 runtimes"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\zlib.dll"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\MSCOMCTL.OCX"
   !insertmacro UnInstallLib REGDLL SHARED NOREMOVE "$SYSDIR\aamd532.dll"
-  
+
 SectionEnd
 
 

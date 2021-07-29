@@ -22,7 +22,10 @@ Unicode true
 
 
 ; Folder in which the game files are stored (relative to script)
-!define GAME_FILES       "Argentum20\*.*"
+!define GAME_FILES       "Argentum20"
+
+; Folder where the application executable is located (after installation)
+!define CLIENT_FOLDER    "${GAME_FILES}\Cliente"
 
 ; Folder in which the dlls and ocx for the game are stored (relative to script)
 !define DEPENDS_FOLDER   "dlls"
@@ -158,7 +161,7 @@ InstallDirRegKey HKLM ${AO_INSTALLDIR_REGKEY} "${INSTALL_DIR_REG_NAME}"
 ; Description of each component in each language
 
 LangString ARGENTUM_DESC ${LANG_ENGLISH} "Basic client for ${PRODUCT_NAME}"
-LangString ARGENTUM_DESC ${LANG_SPANISH} "Cliente bÃ¡sico de ${PRODUCT_NAME}"
+LangString ARGENTUM_DESC ${LANG_SPANISH} "Cliente basico de ${PRODUCT_NAME}"
 
 LangString DESKTOP_LINK_DESC ${LANG_ENGLISH} "Adds a link to ${PRODUCT_NAME} in the Desktop"
 LangString DESKTOP_LINK_DESC ${LANG_SPANISH} "Agrega un acceso directo a ${PRODUCT_NAME} en el Escritorio"
@@ -198,14 +201,14 @@ LicenseLangString MUILicense ${LANG_SPANISH} "license-es.txt"
 Section "${PRODUCT_NAME}" SEC_ARGENTUM
 
   SectionIn RO
-  
+
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
-  
+
   ;--------------------------------------------------------------------
   ; *** Los archivos del juego ***
 
-  File /r "${GAME_FILES}"
+  File /r "${GAME_FILES}\*.*"
   
   ;--------------------------------------------------------------------
   ; Write the installation path into the registry
@@ -280,28 +283,23 @@ Section "-Install VB6 runtimes"
 
   new_installation:
 
-  SetOutPath "$INSTDIR\${DEPENDS_FOLDER}"
-
   ;--------------------------------
   ; Librerias COM usadas por la aplicación
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\MSINET.ocx" "$INSTDIR\${DEPENDS_FOLDER}\MSINET.ocx" "$TEMP"
+     "${DEPENDS_FOLDER}\MSINET.OCX" "$INSTDIR\${CLIENT_FOLDER}\MSINET.OCX" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\RICHTX32.ocx" "$INSTDIR\${DEPENDS_FOLDER}\RICHTX32.ocx" "$TEMP"
+     "${DEPENDS_FOLDER}\comctl32.ocx" "$INSTDIR\${CLIENT_FOLDER}\comctl32.ocx" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\comctl32.ocx" "$INSTDIR\${DEPENDS_FOLDER}\comctl32.ocx" "$TEMP"
+     "${DEPENDS_FOLDER}\DX8VB.DLL" "$INSTDIR\${CLIENT_FOLDER}\DX8VB.DLL" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\DX8VB.DLL" "$INSTDIR\${DEPENDS_FOLDER}\DX8VB.DLL" "$TEMP"
+     "${DEPENDS_FOLDER}\RICHTX32.OCX" "$INSTDIR\${CLIENT_FOLDER}\RICHTX32.OCX" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\RICHTX32.OCX" "$INSTDIR\${DEPENDS_FOLDER}\RICHTX32.OCX" "$TEMP"
-
-  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
-     "${DEPENDS_FOLDER}\MSCOMCTL.OCX" "$INSTDIR\${DEPENDS_FOLDER}\MSCOMCTL.OCX" "$TEMP"
+     "${DEPENDS_FOLDER}\MSCOMCTL.OCX" "$INSTDIR\${CLIENT_FOLDER}\MSCOMCTL.OCX" "$TEMP"
      
 SectionEnd
 

@@ -284,7 +284,7 @@ Section "-Install VB6 runtimes"
   new_installation:
 
   ;--------------------------------
-  ; Librerias COM usadas por la aplicación
+  ; Librerias COM usadas por la aplicaciÃ³n
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
      "${DEPENDS_FOLDER}\MSINET.OCX" "$SYSDIR\MSINET.OCX" "$TEMP"
@@ -294,6 +294,9 @@ Section "-Install VB6 runtimes"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
      "${DEPENDS_FOLDER}\DX8VB.DLL" "$SYSDIR\DX8VB.DLL" "$TEMP"
+	
+  !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
+     "${DEPENDS_FOLDER}\MSSTDFMT.DLL" "$SYSDIR\MSSTDFMT.DLL" "$TEMP"
 
   !insertmacro InstallLib REGDLL $ALREADY_INSTALLED REBOOT_PROTECTED \
      "${DEPENDS_FOLDER}\RICHTX32.OCX" "$SYSDIR\RICHTX32.OCX" "$TEMP"
